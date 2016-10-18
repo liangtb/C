@@ -1,0 +1,21 @@
+git config --global user.email           /获取配置信息
+ssh-keygen -t rsa -C “your email”        /生成ssh
+ssh -T git@github.com                    /验证ssh
+
+
+##push data from local with summary 
+git init
+git add filename                      /写进缓存
+git commit -m ‘summary’	              /提交文件到本地
+git push -u origin master             /上传到git
+
+      
+
+git remote add origin https://github.com/yourname/*.git /获取remote
+
+
+
+
+
+
+
