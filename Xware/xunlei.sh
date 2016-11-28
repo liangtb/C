@@ -166,10 +166,10 @@ check_xware()
 			check_xware_process_details
 			echo "$(date +%Y年%m月%d日\ %X)： 迅雷远程已重启完成！"
 			echo "$(date +%Y年%m月%d日\ %X)： 迅雷远程守护进程运行正常！"
-		elif [ "${COUNT_1}" -ge "3" ] && [ "${COUNT_1}" -le "15" ]; then										#判断迅雷远程关键进程正在运行，且线程数量大于或等于3且小于或等于15
+		elif [ "${COUNT_1}" -ge "3" ] && [ "${COUNT_1}" -le "12" ]; then										#判断迅雷远程关键进程正在运行，且线程数量大于或等于3且小于或等于12(15)
 			echo "$(date +%Y年%m月%d日\ %X)： 迅雷远程运行正常！"
 			echo "$(date +%Y年%m月%d日\ %X)： 迅雷远程守护进程运行正常！"
-		elif [ "${COUNT_1}" -gt "15" ]; then																	#判断迅雷远程关键进程正在运行，且线程数量大于15
+		elif [ "${COUNT_1}" -gt "12" ]; then																	#判断迅雷远程关键进程正在运行，且线程数量大于12(15)
 			echo "$(date +%Y年%m月%d日\ %X)： 迅雷远程线程过多，设备负载过大，正在重启……"
 			./portal>/dev/null 2>&1																				#重新启动迅雷远程
 			check_xware_process_details
@@ -189,7 +189,7 @@ check_xware()
 while true; do
 	check_xware>>"${LOG_FULL}" 2>&1 &
 	check_xware_guard_process>>"${LOG_FULL}" 2>&1 &
-	sleep 10m																									#本脚本的循环执行周期为10分钟(秒单位为s，分钟单位为m，小时单位为h)
+	sleep 1h																									#本脚本的循环执行周期为1h(10分钟)(秒单位为s，分钟单位为m，小时单位为h)
 	PID_time=`ps|grep -E "sleep 10m"|grep -v grep|awk '{print $1}'`; kill ${PID_time}
 	rm -rf "${LOG_FULL}"																						#清空日志内容(按周期循环重写，日志文件体积不会无限变大。如果需要查看历史日志，本行命令可以删除或用#注释掉)
 done &
